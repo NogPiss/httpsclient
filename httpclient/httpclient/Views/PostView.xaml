@@ -5,8 +5,8 @@
              Title="PostView">
     <ScrollView>
         <VerticalStackLayout>
-            <Button Text="Carregar Postagens"/>
-            <CollectionView>
+            <Button Text="Carregar Postagens" Command="{Binding  getPostagensCommand}"/>
+            <CollectionView ItemsSource="{Binding Posts}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <VerticalStackLayout>

@@ -1,6 +1,7 @@
 ﻿using httpclient.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -12,7 +13,7 @@ namespace httpclient.Services
     internal class PostServices
     {
         private HttpClient httpClient;
-        private List<Posts> posts;
+        private ObservableCollection<Posts> posts;
         private JsonSerializerOptions jsonSerializerOptions;
 
         public PostServices()
@@ -25,7 +26,7 @@ namespace httpclient.Services
 
         }
 
-        public async Task<List<Posts>> GetPostsAsync()
+        public async Task<ObservableCollection<Posts>> GetPostsAsync()
         {
             Uri uri = new Uri("https://jsonplaceholder.typicode.com/posts");
             try
@@ -34,16 +35,14 @@ namespace httpclient.Services
                 if (response.IsSuccessStatusCode)
                 {
                     string content = await response.Content.ReadAsStringAsync();
-                    posts = JsonSerializer.Deserialize<List<Posts>>(content, jsonSerializerOptions);
+                    posts = JsonSerializer.Deserialize<ObservableCollection<Posts>>(content, jsonSerializerOptions);
                 }
             }
             catch
             {
-            
+                
             }
             return posts;
-
         }
-
     }
 }
